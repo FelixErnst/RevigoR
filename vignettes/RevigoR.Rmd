@@ -1,0 +1,24 @@
+---
+title: "RevigoR"
+author: "Felix GM Ernst"
+date: "`r Sys.Date()`"
+output: 
+    BiocStyle::html_document:
+        toc: true
+        toc_float: true
+        df_print: paged
+vignette: >
+  %\VignetteIndexEntry{RevigoR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: references.bib 
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
