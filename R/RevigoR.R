@@ -1,5 +1,4 @@
-#' @title 
-#' RevigoR
+#' @title RevigoR
 #' 
 #' @author Felix G M Ernst [aut]
 #' 
@@ -15,4 +14,5 @@ NULL
 #' @import assertive
 #' @import httr
 #' @import S4Vectors
+#' @importFrom RDAVIDWebService DAVIDFunctionalAnnotationChart
 NULL

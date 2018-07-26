@@ -2,29 +2,10 @@
 NULL
 
 
-#' @name RevigoRData-class
-#' 
-#' @title RevigoRData
-#' 
-#' @description 
-#' These classes are inheriting from List. It contains exactly two DataFrames, 
-#' table and treemap
-#' 
-#' but require the presence of
-#' the following columns to be valid.
-#' 
-#' @export
-#'
-#' @examples
-#' df <- DataFrame(a = 1, b = 2)
-setClass("RevigoRData",
-         contains = "SimpleList")
-
 #' @rdname RevigoRData-class
 #' @export
 RevigoRData <- function(table,
                         treemap){
-  browser()
   class <- new("RevigoRData", 
                table,
                treemap)
@@ -45,20 +26,18 @@ setMethod(
 
 # Validation -------------------------------------------------------------------
 
+.valid.RevigoRData <- function(object){
+  return(all(.is_valid_table(object),.is_valid_table(object)))
+}
+
+.is_valid_table <- function(object){
+  return(TRUE)
+}
+.is_valid_treemap <- function(object){
+  return(TRUE)
+}
+
 setValidity("RevigoRData", .valid.RevigoRData)
-
-.valid.RevigoRData <- function(x){
-  return(all(.is_valid_table(x),.is_valid_table(x)))
-}
-
-.is_valid_table <- function(x){
-  return(TRUE)
-}
-.is_valid_treemap <- function(x){
-  return(TRUE)
-}
-
-
 
 # Coercion ---------------------------------------------------------------------
 
