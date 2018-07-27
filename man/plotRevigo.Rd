@@ -8,16 +8,43 @@
 \alias{plotRevigoTreemap,RevigoRData-method}
 \title{Plotting ReViGo data}
 \usage{
-plotRevigoScatter(x)
+plotRevigoScatter(x, xType = "X", yType = "Y",
+  pointSizeType = "uniqueness", colourType = "pvalue", colour = "red",
+  size = 10)
 
-plotRevigoTreemap(x)
+plotRevigoTreemap(x, type = "pvalue", palette = "Set1")
 
-\S4method{plotRevigoScatter}{RevigoRData}(x)
+\S4method{plotRevigoScatter}{RevigoRData}(x, xType = "X", yType = "Y",
+  pointSizeType = "uniqueness", colourType = "pvalue", colour = "red",
+  size = 10)
 
-\S4method{plotRevigoTreemap}{RevigoRData}(x)
+\S4method{plotRevigoTreemap}{RevigoRData}(x, type = "pvalue",
+  palette = "Set1")
 }
 \arguments{
 \item{x}{a RevigoRData object}
+
+\item{xType}{one of the following values: 
+\code{"alphabetical","pvalue","uniqueness","X","Y"}}
+
+\item{yType}{one of the following values: 
+\code{"pvalue","uniqueness","X","Y"}}
+
+\item{pointSizeType}{one of the following values: 
+\code{"same","point_size","pvalue","uniqueness","X","Y"}}
+
+\item{colourType}{one of the following values: 
+\code{"same","unique","pvalue","uniqueness","X","Y"}}
+
+\item{colour}{a colour, which ggplot understands}
+
+\item{size}{a positive numeric value}
+
+\item{type}{one of \code{"frequency"}, \code{"pvalue"}, \code{"uniqueness"} 
+or \code{"dispensability"}}
+
+\item{palette}{name of a colour palette, which 
+\code{ggplot2::scale_fill_brewer} accepts}
 }
 \value{
 a ggplot2 plot

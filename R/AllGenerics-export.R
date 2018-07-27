@@ -8,7 +8,9 @@ NULL
 setGeneric( 
   name = "getRevigo",
   def = function(x,
-                 pValueCutoff = 0.05) standardGeneric("getRevigo")
+                 goCategory,
+                 pValueCutoff = FALSE,
+                 padjValueCutoff = FALSE) standardGeneric("getRevigo")
 ) 
 
 # plotting ---------------------------------------------------------------------
@@ -17,13 +19,21 @@ setGeneric(
 #' @export
 setGeneric( 
   name = "plotRevigoScatter",
-  def = function(x) standardGeneric("plotRevigoScatter")
+  def = function(x,
+                 xType = "X",
+                 yType = "Y",
+                 pointSizeType = "uniqueness",
+                 colourType = "pvalue",
+                 colour = "red",
+                 size = 10) standardGeneric("plotRevigoScatter")
 ) 
 
 #' @name plotRevigo
 #' @export
 setGeneric( 
   name = "plotRevigoTreemap",
-  def = function(x) standardGeneric("plotRevigoTreemap")
+  def = function(x,
+                 type = "pvalue",
+                 palette = "Set1") standardGeneric("plotRevigoTreemap")
 ) 
 

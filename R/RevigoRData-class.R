@@ -18,6 +18,38 @@ setMethod(
   definition = function(.Object,
                         table = DataFrame(),
                         treemap = DataFrame()) {
+    #
+    table[table$plot_X == "null","plot_X"] <- 
+      rep(NA,nrow(table[table$plot_X == "null",]))
+    table[table$plot_Y == "null","plot_Y"] <- 
+      rep(NA,nrow(table[table$plot_X == "null",]))
+    table$plot_X <- as.numeric(as.character(table$plot_X))
+    table$plot_Y <- as.numeric(as.character(table$plot_Y))
+    table$plot_size <- as.numeric(as.character(table$plot_size))
+    table$log10pvalue <- as.numeric(as.character(table$log10pvalue))
+    if(any(stringr::str_detect(table$frequency, "%"))){
+      if(sum(stringr::str_detect(table$frequency, "%")) != nrow(table)){
+        stop("Inconsistent frequency format.")
+      }
+      table$frequency <- as.numeric(gsub("%","",table$frequency))/100
+    } else {
+      table$frequency <- as.numeric(as.character(table$frequency))
+    }
+    table$uniqueness <- as.numeric(as.character(table$uniqueness))
+    table$dispensability <- as.numeric(as.character(table$dispensability))
+    #
+    treemap$log10pvalue <- as.numeric(as.character(treemap$log10pvalue))
+    if(any(stringr::str_detect(treemap$frequency, "%"))){
+      if(sum(stringr::str_detect(treemap$frequency, "%")) != nrow(treemap)){
+        stop("Inconsistent frequency format.")
+      }
+      treemap$frequency <- as.numeric(gsub("%","",treemap$frequency))/100
+    } else {
+      treemap$frequency <- as.numeric(as.character(treemap$frequency))
+    }
+    treemap$uniqueness <- as.numeric(as.character(treemap$uniqueness))
+    treemap$dispensability <- as.numeric(as.character(treemap$dispensability))
+    #
     .Object@listData[["table"]] <- table
     .Object@listData[["treemap"]] <- treemap
     return(.Object)
@@ -31,9 +63,25 @@ setMethod(
 }
 
 .is_valid_table <- function(object){
+  
+  # table <- table[(table$plot_X != "null" & 
+  #                   table$plot_Y != "null"),]
+  # table$plot_X <- as.numeric(as.character(table$plot_X))
+  # table$plot_Y <- as.numeric(as.character(table$plot_Y))
+  # table$plot_size <- as.numeric(as.character(table$plot_size))
+  # table$log10.p.value <- as.numeric(as.character(table$log10.p.value))
+  # table$frequency <- as.numeric(as.character(table$frequency))
+  # table$uniqueness <- as.numeric(as.character(table$uniqueness))
+  # table$dispensability <- as.numeric(as.character(table$dispensability))
+  
   return(TRUE)
 }
 .is_valid_treemap <- function(object){
+  # treemap$abslog10pvalue <- as.numeric(as.character(treemap$abslog10pvalue))
+  # treemap$freqInDbPercent <- as.numeric(as.character(treemap$freqInDbPercent))
+  # treemap$uniqueness <- as.numeric(as.character(treemap$uniqueness))
+  # treemap$dispensability <- as.numeric(as.character(treemap$dispensability))
+  
   return(TRUE)
 }
 

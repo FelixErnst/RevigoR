@@ -10,16 +10,10 @@ NULL
 #' plotting stuff
 #'
 #' @param x a RevigoRData object
-#' @param xType one of the following values: 
-#' \code{"alphabetical","pvalue","uniqueness","X","Y"}
-#' @param yType one of the following values: 
-#' \code{"pvalue","uniqueness","X","Y"}
-#' @param pointSizeType one of the following values: 
-#' \code{"same","point_size","pvalue","uniqueness","X","Y"}
-#' @param colourType one of the following values: 
-#' \code{"same","unique","pvalue","uniqueness","X","Y"}
-#' @param colour a colour, which ggplot understands
-#' @param size a positive numeric value
+#' @param xType a RevigoRData object
+#' @param yType a RevigoRData object
+#' @param pointSizeType a RevigoRData object
+#' @param colourType a RevigoRData object
 #'
 #' @return a ggplot2 plot
 #' 
@@ -40,6 +34,7 @@ setMethod(
                         yType,
                         pointSizeType,
                         colourType,
+                        palette,
                         colour,
                         size){
     requireNamespace("gpplot2", quietly = TRUE)
@@ -49,8 +44,8 @@ setMethod(
     checkY <- c("pvalue","uniqueness","X","Y")
     checkPoint <- c("same","point_size","pvalue","uniqueness","X","Y")
     checkColour <- c("same","unique","pvalue","uniqueness","X","Y")
-    labelNames <- c("description" = "Alphabetical",
-                    "plot_size" = "Point size",
+    labelNames <- c("alphabetical" = "Alphabetical",
+                    "point_size" = "Point size",
                     "log10pvalue" = "-log10(p)",
                     "uniqueness" = "uniqueness",
                     "plot_X" = "Semantic space X",
@@ -67,9 +62,6 @@ setMethod(
     .checkValueValidity(colourType,
                         checkColour)
     colourType <- .convert_types_to_colnames(colourType)
-    assertive::assert_is_a_string(colour)
-    assertive::assert_is_a_number(size)
-    assertive::assert_all_are_positive(size)
     # get data and subset
     data <- getTableData(x)
     data <- data[!is.na(data$plot_X) | !is.na(data$plot_Y),]
@@ -100,13 +92,6 @@ setMethod(
                                         size = pointSizeType),
                    colour = colour,
                    alpha = I(0.6))
-    } else if(colourType == "unique"){
-      plot <- plot + 
-        geom_point(mapping = aes_string(x = xType,
-                                        y = yType,
-                                        size = pointSizeType,
-                                        colour = "description"),
-                   alpha = I(0.6))
     } else {
       plot <- plot + 
         geom_point(mapping = aes_string(x = xType,
@@ -127,31 +112,31 @@ setMethod(
     } else {
       plot <- plot + 
         geom_point(mapping = aes_string(x = xType,
-                                        y = yType,
-                                        size = pointSizeType), 
-                   shape = 21, 
-                   fill = "transparent", 
-                   colour = I(alpha("black", 0.6)))
+                                      y = yType,
+                                      size = pointSizeType), 
+                 shape = 21, 
+                 fill = "transparent", 
+                 colour = I(alpha("black", 0.6)))
     }
     #
     if(xType %in% c("log10pvalue","uniqueness","plot_X","plot_Y")){
       x_range = max(data[,xType]) - min(data[,xType])
       plot <- plot +
-        xlim(min(data[,xType]) - x_range/10,
-             max(data[,xType]) + x_range/10)
+        xlim(min(data$plot_X) - x_range/10,
+             max(data$plot_X) + x_range/10)
     }
     if(yType %in% c("log10pvalue","uniqueness","plot_X","plot_Y")){
-      y_range = max(data[,yType]) - min(data[,yType])
+      y_range = max(data[,xType]) - min(data[,xType])
       plot <- plot +
-        ylim(min(data[,yType]) - y_range/10,
-             max(data[,yType]) + y_range/10)
+        ylim(min(data$plot_Y) - y_range/10,
+             max(data$plot_Y) + y_range/10)
     }
     # remaining plot stuff
     plot <- plot +
       theme_bw() + 
       theme(legend.key = element_blank()) +
-      labs(x = labelNames[xType],
-           y = labelNames[yType]) +
+      labs(y = labelNames[xType], 
+           x = labelNames[yType]) +
       geom_text(data = ex, 
                 aes_string(x = xType, 
                            y = yType, 
@@ -161,13 +146,13 @@ setMethod(
     #
     if(colourType == "unique"){
       plot <- plot + 
-        scale_colour_manual(name = "GO Terms",
-                            values = grDevices::colorRampPalette(ggthemes::solarized_pal()(8))(nrow(data)))
+        scale_colour_brewer(name = "GO Terms",
+                            palette = palette)
     } else {
       plot <- plot + 
         scale_colour_gradientn(name = labelNames[colourType],
-                               colours = colorRamps::matlab.like2(100),
-                               limits = c(0,max(data$log10pvalue)) )
+                             colours = colorRamps::matlab.like2(100),
+                             limits = c(0,max(data$log10pvalue)) )
     }
     #
     if(pointSizeType == "same"){
@@ -178,25 +163,19 @@ setMethod(
     } else {
       plot <- plot + 
         scale_size(name = labelNames[pointSizeType],
+                   breaks = c(5,10,20,30),
                    range = c(5, 30))
     }
     return(plot)
   }
 )
 
-#
 .convert_types_to_colnames <- function(type){
   if(type %in% c("X","Y")){
     type <- paste0("plot_",type)
   }
   if(type == "pvalue"){
     type <- "log10pvalue"
-  }
-  if(type == "alphabetical"){
-    type <- "description"
-  }
-  if(type == "point_size"){
-    type <- "plot_size"
   }
   return(type)
 }

@@ -14,5 +14,6 @@ NULL
 #' @import assertive
 #' @import httr
 #' @import S4Vectors
+#' @import ggplot2
 #' @importFrom RDAVIDWebService DAVIDFunctionalAnnotationChart
 NULL

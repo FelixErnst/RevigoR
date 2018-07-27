@@ -27,14 +27,14 @@ Suggests:
   knitr,
   rmarkdown
 Collate: 
-    'RevigoR.R'
-    'AllClasses.R'
-    'AllGenerics-export.R'
-    'RevigoR-GOdb.R'
-    'RevigoR-RDAVIDWebService.R'
-    'RevigoR-import.R'
-    'RevigoR-plot.R'
-    'RevigoR-utils.R'
-    'RevigoRData-class.R'
+  'RevigoR.R'
+  'AllClasses.R'
+  'AllGenerics-export.R'
+  'RevigoR-GOdb.R'
+  'RevigoR-RDAVIDWebService.R'
+  'RevigoR-import.R'
+  'RevigoR-plot.R'
+  'RevigoR-utils.R'
+  'RevigoRData-class.R'
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
