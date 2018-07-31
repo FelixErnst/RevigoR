@@ -43,7 +43,6 @@ setMethod(
                         colour,
                         size){
     requireNamespace("gpplot2", quietly = TRUE)
-    browser()
     # input check
     checkX <- c("alphabetical","pvalue","uniqueness","X","Y")
     checkY <- c("pvalue","uniqueness","X","Y")
