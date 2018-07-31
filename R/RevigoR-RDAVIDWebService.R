@@ -27,7 +27,8 @@ setMethod(
   definition = function(x,
                         goCategory,
                         pValueCutoff = FALSE,
-                        padjValueCutoff = FALSE){
+                        padjValueCutoff = FALSE,
+                        ...){
     # input check
     assertive::assert_is_a_non_empty_string(goCategory)
     if(assertive::is_not_false(as.logical(pValueCutoff))){
@@ -49,9 +50,12 @@ setMethod(
       stop("No GO: terms found in selected go category '",goCategory,"'")
     }
     #
+    browser()
     goData <- data.frame(go = str_extract(x$Term,"GO:([0-9]++)"),
                          pvalue = x$PValue)
-    
-    browser()
+    rd <- do.call(getRevigo,
+                  append(list(goData),
+                         list(...)))
+    return(rd)
   }
 )

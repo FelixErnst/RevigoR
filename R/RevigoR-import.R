@@ -32,16 +32,22 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
 #'
 #' @examples
 #' \donttest{
-#' doRevigo()
+#' getRevigo()
 #' }
-doRevigo <- function(goTerms,
-                     cutoff = 0.7,
-                     isPValue = TRUE,
-                     whatIsBetter = "higher",
-                     orgID = 0,
-                     measure = "SIMREL",
-                     revigoURL = "http://revigo.irb.hr",
-                     verbose = FALSE){
+setMethod(
+  f = "getRevigo", 
+  signature = signature(x = "data.frame"),
+  definition = .do_revigo)
+
+#
+.do_revigo <- function(goTerms,
+                       cutoff = 0.7,
+                       isPValue = TRUE,
+                       whatIsBetter = "higher",
+                       orgID = 0,
+                       measure = "SIMREL",
+                       revigoURL = "http://revigo.irb.hr",
+                       verbose = FALSE){
   # input checks
   assertive::assert_is_a_number(cutoff)
   .checkValueValidity(cutoff, 

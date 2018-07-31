@@ -1,4 +1,4 @@
 library(testthat)
-library(test)
+library(RevigoR)
 
-test_check("test")
+test_check("RevigoR")

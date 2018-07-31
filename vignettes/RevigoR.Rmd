@@ -23,7 +23,57 @@ knitr::opts_chunk$set(
 
 # Introduction
 
+Revigo [@SupekF.2011] is a web service ([http://revigo.irb.hr/](http://revigo.irb.hr/)) for visualizing lists of gene ontology (GO) terms and their relation to each others. As input a list of gene ontology terms and optionally associated p-values are accepted. To access the information directly from a R session `RevigoR` can be used.
 
+# Get Revigo data
+
+Their are several option to get the Revigo results. It largely depends, how the GO terms are stored. The simplest option is a data.frame with two columns for GO terms in the format `GO:XXXXXX` and their associated p-values. 
+
+```{r revigor_simple}
+data("rdinput", package = "RevigoR")
+rdinput
+
+rd <- getRevigo(rdinput)
+rd
+```
+
+The results are saved as a `RevigoData` object, which is basically a `SimpleList` with a fixed length of two (table and treemap keays)
+
+```{r revigor_data}
+rd
+getTableData(rd) == rd[["table"]]
+```
+
+For commonly used GO objects such as `DAVIDFunctionalAnnotationChart` from the `RDAVIDWebService`.
+
+```{r revigor_david}
+data("chart", package = "RevigoR")
+chart
+
+rd <- getRevigo(chart)
+rd
+```
+
+
+# Plot Revigo type figures
+
+Results from Revigo are usually plotted as a scatter plot or treemap as done on the web site
+
+```{r revigor_scatter, eval=FALSE}
+plotRevigoScatter(rd)
+```
+
+```{r plot1, fig.cap="Revigo scatter plot", echo=FALSE}
+plotRevigoScatter(rd)
+```
+
+```{r revigor_treemap, eval=FALSE}
+plotRevigoTreemap(rd)
+```
+
+```{r plot2, fig.cap="Revigo treemap plot", echo=FALSE}
+plotRevigoTreemap(rd)
+```
 
 # Sessioninfo
 
