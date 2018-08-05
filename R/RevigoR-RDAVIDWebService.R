@@ -2,13 +2,12 @@
 NULL
 
 #' @rdname getRevigo
-#' 
-#' @description
-#' Acc
 #'
-#' @param x a DAVIDFunctionalAnnotationChart object
-#'
-#' @return a RevigoRData object
+#' @param goCategory a string to choose a GO category
+#' @param pValueCutoff a p-value cutoff for subsetting relevant GO terms 
+#' (default:  \code{pValueCutoff = FALSE})
+#' @param padjValueCutoff a p-adjusted value cutoff gor subsetting to relevant
+#' GO terms (default: \code{padjValueCutoff = FALSE})
 #' 
 #' @importFrom stringr str_detect
 #' 
@@ -50,9 +49,8 @@ setMethod(
       stop("No GO: terms found in selected go category '",goCategory,"'")
     }
     #
-    browser()
-    goData <- data.frame(go = str_extract(x$Term,"GO:([0-9]++)"),
-                         pvalue = x$PValue)
+    goData <- data.frame(goTerms = stringr::str_extract(x$Term,"GO:([0-9]++)"),
+                         value = x$PValue)
     rd <- do.call(getRevigo,
                   append(list(goData),
                          list(...)))

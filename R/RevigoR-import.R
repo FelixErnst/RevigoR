@@ -12,35 +12,8 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
                     3055,83333,224308,208964,83332,243273,1111708,
                     190650,272634,1413510)
 
-#' @rdname getRevigo
-#' 
-#' @title Get data from ReViGo
-#' 
-#' @description
-#' \code{getRevigo} access the ReViGo services with the given gene ontology 
-#' terms.
-#'
-#' @param goTerms a data.frame like object with two columns, "goTerms" and 
-#' "p-value". If colnames are not given, the order is assumed.
-#' @param revigoURL optional: the URL of the ReViGo service (default = 
-#' \code{http://revigo.irb.hr})
-#' @param verbose optional: whether to print more verbose information for the 
-#' httr functions used to accessed the ReViGo service. 
-#'
-#' @return RevigoRData
-#' @export
-#'
-#' @examples
-#' \donttest{
-#' getRevigo()
-#' }
-setMethod(
-  f = "getRevigo", 
-  signature = signature(x = "data.frame"),
-  definition = .do_revigo)
-
 #
-.do_revigo <- function(goTerms,
+.do_revigo <- function(x,
                        cutoff = 0.7,
                        isPValue = TRUE,
                        whatIsBetter = "higher",
@@ -77,7 +50,7 @@ setMethod(
   }
   # construct revigo input parameters
   revigo <- list(
-    goList = paste(apply(goTerms, 
+    goList = paste(apply(x, 
                          1,
                          function(x){
                            paste(trimws(x[1]),
@@ -104,7 +77,6 @@ setMethod(
                       encode = "form")
   }
   # check result
-  browser()
   # get the actual data as csv
   if(verbose){
     table <- httr::GET(revigo_url(REVIGOR_URL_CSVSCRIPT1), 
@@ -159,3 +131,47 @@ setMethod(
   #
   return(rd)
 }
+
+#' @rdname getRevigo
+#' 
+#' @title Get data from ReViGo
+#' 
+#' @description
+#' \code{getRevigo} access the ReViGo services with the given gene ontology 
+#' terms.
+#'
+#' @param x the input data of different types. The simplist one is a 
+#' data.frame like object with two columns, "goTerms" and 
+#' "value". If colnames are not given, the order is assumed as described.
+#' @param similarityCutoff 0.9, 0.7, 0.5 or 0.4 
+#' @param isPValue are the values for each GO term p-values?
+#' @param whatIsBetter if the values are not p-values, how should the vallues 
+#' be evaluated? One of the following values: "higher","lower","absolute",
+#' "abs_log". 
+#' @param orgID for which organism are the values for? Please refer to the 
+#' original
+#' puplication.
+#' @param measure how should the similiarity be measured? One of the following
+#' values:
+#' "RESNIK","LIN","SIMREL","JIANG"
+#' @param revigoURL the URL for revigo service
+#' @param verbose Should verbose messages of the httr functions httr::POST and
+#' httr::GET be displayed
+#' @param revigoURL optional: the URL of the ReViGo service (default = 
+#' \code{http://revigo.irb.hr})
+#' @param verbose optional: whether to print more verbose information for the 
+#' httr functions used to accessed the ReViGo service.
+#'
+#' @return a RevigoRData object
+#' 
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' getRevigo()
+#' }
+setMethod(
+  f = "getRevigo", 
+  signature = signature(x = "data.frame"),
+  definition = .do_revigo)
+

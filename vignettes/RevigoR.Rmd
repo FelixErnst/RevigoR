@@ -41,16 +41,17 @@ The results are saved as a `RevigoData` object, which is basically a `SimpleList
 
 ```{r revigor_data}
 rd
-getTableData(rd) == rd[["table"]]
+all(getTableData(rd) == rd[["table"]], na.rm = TRUE)
 ```
 
-For commonly used GO objects such as `DAVIDFunctionalAnnotationChart` from the `RDAVIDWebService`.
+For commonly used GO objects such as `DAVIDFunctionalAnnotationChart` from the `RDAVIDWebService`. Since a chart can hold data different GO categories, a category has to be chosen for subsetting.
 
 ```{r revigor_david}
 data("chart", package = "RevigoR")
 chart
-
-rd <- getRevigo(chart)
+# also 
+rd <- getRevigo(chart,
+                goCategory = "GOTERM_BP_DIRECT")
 rd
 ```
 

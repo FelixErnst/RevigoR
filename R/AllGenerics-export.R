@@ -10,7 +10,8 @@ setGeneric(
   def = function(x,
                  goCategory,
                  pValueCutoff = FALSE,
-                 padjValueCutoff = FALSE) standardGeneric("getRevigo")
+                 padjValueCutoff = FALSE,
+                 ...) standardGeneric("getRevigo")
 ) 
 
 # plotting ---------------------------------------------------------------------

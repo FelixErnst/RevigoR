@@ -5,23 +5,51 @@
 \name{getRevigo}
 \alias{getRevigo}
 \alias{getRevigo,DAVIDFunctionalAnnotationChart,character-method}
-\alias{doRevigo}
+\alias{getRevigo,data.frame,ANY-method}
 \title{Get data from ReViGo}
 \usage{
-getRevigo(x, goCategory, pValueCutoff = FALSE, padjValueCutoff = FALSE)
+getRevigo(x, goCategory, pValueCutoff = FALSE, padjValueCutoff = FALSE, ...)
 
 \S4method{getRevigo}{DAVIDFunctionalAnnotationChart,character}(x, goCategory,
-  pValueCutoff = FALSE, padjValueCutoff = FALSE)
+  pValueCutoff = FALSE, padjValueCutoff = FALSE, ...)
 
-doRevigo(goTerms, cutoff = 0.7, isPValue = TRUE, whatIsBetter = "higher",
-  orgID = 0, measure = "SIMREL", revigoURL = "http://revigo.irb.hr",
-  verbose = FALSE)
+\S4method{getRevigo}{data.frame,ANY}(x, cutoff = 0.7, isPValue = TRUE,
+  whatIsBetter = "higher", orgID = 0, measure = "SIMREL",
+  revigoURL = "http://revigo.irb.hr", verbose = FALSE)
 }
 \arguments{
-\item{x}{a DAVIDFunctionalAnnotationChart object}
+\item{x}{the input data of different types. The simplist one is a 
+data.frame like object with two columns, "goTerms" and 
+"value". If colnames are not given, the order is assumed as described.}
 
-\item{goTerms}{a data.frame like object with two columns, "goTerms" and 
-"p-value". If colnames are not given, the order is assumed.}
+\item{goCategory}{a string to choose a GO category}
+
+\item{pValueCutoff}{a p-value cutoff for subsetting relevant GO terms 
+(default:  \code{pValueCutoff = FALSE})}
+
+\item{padjValueCutoff}{a p-adjusted value cutoff gor subsetting to relevant
+GO terms (default: \code{padjValueCutoff = FALSE})}
+
+\item{isPValue}{are the values for each GO term p-values?}
+
+\item{whatIsBetter}{if the values are not p-values, how should the vallues 
+be evaluated? One of the following values: "higher","lower","absolute",
+"abs_log".}
+
+\item{orgID}{for which organism are the values for? Please refer to the 
+original
+puplication.}
+
+\item{measure}{how should the similiarity be measured? One of the following
+values:
+"RESNIK","LIN","SIMREL","JIANG"}
+
+\item{revigoURL}{the URL for revigo service}
+
+\item{verbose}{Should verbose messages of the httr functions httr::POST and
+httr::GET be displayed}
+
+\item{similarityCutoff}{0.9, 0.7, 0.5 or 0.4}
 
 \item{revigoURL}{optional: the URL of the ReViGo service (default = 
 \code{http://revigo.irb.hr})}
@@ -31,12 +59,8 @@ httr functions used to accessed the ReViGo service.}
 }
 \value{
 a RevigoRData object
-
-RevigoRData
 }
 \description{
-Acc
-
 \code{getRevigo} access the ReViGo services with the given gene ontology 
 terms.
 }
@@ -47,6 +71,6 @@ getRevigo(go,
           pValueCutoff = 0.05)
 }
 \donttest{
-doRevigo()
+getRevigo()
 }
 }

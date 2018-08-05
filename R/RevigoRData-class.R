@@ -93,7 +93,6 @@ setAs("RevigoRData", "list", function(from) as.list(from))
 setAs("List", "RevigoRData", function(from) as.revigor_data.List(from))
 
 as.revigor_data.List <- function(from){
-  browser()
   elementNames <- c("table","treemap")
   if(length(from) == 0){
     class(from) <- "RevigoRData"
