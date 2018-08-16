@@ -10,13 +10,13 @@
 \usage{
 plotRevigoScatter(x, xType = "X", yType = "Y",
   pointSizeType = "uniqueness", colourType = "pvalue", colour = "red",
-  size = 10)
+  size = 10, showAllLabels = FALSE)
 
 plotRevigoTreemap(x, type = "pvalue", palette = "Set1")
 
 \S4method{plotRevigoScatter}{RevigoRData}(x, xType = "X", yType = "Y",
   pointSizeType = "uniqueness", colourType = "pvalue", colour = "red",
-  size = 10)
+  size = 10, showAllLabels = FALSE)
 
 \S4method{plotRevigoTreemap}{RevigoRData}(x, type = "pvalue",
   palette = "Set1")
@@ -39,6 +39,9 @@ plotRevigoTreemap(x, type = "pvalue", palette = "Set1")
 \item{colour}{a colour, which ggplot understands}
 
 \item{size}{a positive numeric value}
+
+\item{showAllLabels}{optional logical value: should all labels be shown? 
+(default: \code{showAllLabels = FALSE})}
 
 \item{type}{one of \code{"frequency"}, \code{"pvalue"}, \code{"uniqueness"} 
 or \code{"dispensability"}}

@@ -17,3 +17,4 @@ NULL
 #' @import ggplot2
 #' @importFrom RDAVIDWebService DAVIDFunctionalAnnotationChart
 NULL
+requireNamespace("assertive")

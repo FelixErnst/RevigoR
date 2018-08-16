@@ -26,7 +26,8 @@ setGeneric(
                  pointSizeType = "uniqueness",
                  colourType = "pvalue",
                  colour = "red",
-                 size = 10) standardGeneric("plotRevigoScatter")
+                 size = 10,
+                 showAllLabels = FALSE) standardGeneric("plotRevigoScatter")
 ) 
 
 #' @name plotRevigo

@@ -27,8 +27,9 @@ data.frame like object with two columns, "goTerms" and
 \item{pValueCutoff}{a p-value cutoff for subsetting relevant GO terms 
 (default:  \code{pValueCutoff = FALSE})}
 
-\item{padjValueCutoff}{a p-adjusted value cutoff gor subsetting to relevant
-GO terms (default: \code{padjValueCutoff = FALSE})}
+\item{padjValueCutoff}{a p-adjusted value cutoff for subsetting to relevant
+GO terms (default: \code{padjValueCutoff = FALSE}) using the Benjamini 
+p-adjusted value as returned by the DAVID database.}
 
 \item{isPValue}{are the values for each GO term p-values?}
 

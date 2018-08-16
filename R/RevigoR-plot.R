@@ -20,6 +20,8 @@ NULL
 #' \code{"same","unique","pvalue","uniqueness","X","Y"}
 #' @param colour a colour, which ggplot understands
 #' @param size a positive numeric value
+#' @param showAllLabels optional logical value: should all labels be shown? 
+#' (default: \code{showAllLabels = FALSE})
 #'
 #' @return a ggplot2 plot
 #' 
@@ -41,7 +43,8 @@ setMethod(
                         pointSizeType,
                         colourType,
                         colour,
-                        size){
+                        size,
+                        showAllLabels){
     requireNamespace("gpplot2", quietly = TRUE)
     # input check
     checkX <- c("alphabetical","pvalue","uniqueness","X","Y")
@@ -69,11 +72,16 @@ setMethod(
     assertive::assert_is_a_string(colour)
     assertive::assert_is_a_number(size)
     assertive::assert_all_are_positive(size)
+    assertive::assert_is_a_bool(showAllLabels)
     # get data and subset
     data <- getTableData(x)
     data <- data[!is.na(data$plot_X) | !is.na(data$plot_Y),]
     data$log10pvalue <- abs(data$log10pvalue)
-    ex <- data[data$dispensability < 0.15,]
+    if(showAllLabels){
+      ex <- data
+    } else{
+      ex <- data[data$dispensability < 0.15,]
+    }
     # plot data
     plot <- ggplot(data = data)
     # point and colour options
