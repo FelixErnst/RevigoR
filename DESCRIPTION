@@ -21,7 +21,9 @@ Depends:
   assertive,
   S4Vectors
 Imports:
-  RDAVIDWebService
+  RDAVIDWebService,
+  treemapify,
+  colorRamps
 Suggests: 
   testthat,
   knitr,
