@@ -45,7 +45,7 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
                         "JIANG"))
   #
   revigo_url <- function(path = "") {
-    url <- modify_url(revigoURL, path = path)
+    url <- httr::modify_url(revigoURL, path = path)
     return(url)
   }
   # construct revigo input parameters
