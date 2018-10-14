@@ -22,6 +22,14 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
                        revigoURL = "http://revigo.irb.hr",
                        verbose = FALSE){
   # input checks
+  if(ncol(x) != 2 || !is(x,"data.frame")){
+    stop("Input data has the wrong format. A data.frame is expected, but ",
+         class(x),
+         " with ",
+         ncol(x),
+         " columns detected.",
+         call. = FALSE)
+  }
   assertive::assert_is_a_number(cutoff)
   .checkValueValidity(cutoff, 
                       c(0.9,
@@ -89,6 +97,11 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
                          httr::verbose())
   } else {
     treemap <- httr::GET(revigo_url(REVIGOR_URL_CSVSCRIPT2))
+  }
+  if(!has_content(table) || !has_content(treemap)){
+    stop("No data found. Head of input data:",
+         head(x),
+         call. = FALSE)
   }
   # extract csv text
   table <- utils::read.csv(text = readBin(content(table), "character"),
