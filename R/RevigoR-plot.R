@@ -1,8 +1,8 @@
 #' @include RevigoR.R
+#' @include AllGenerics-export.R
 NULL
 
-
-#' @rdname plotRevigo
+#' @name plotRevigo
 #' 
 #' @title Plotting ReViGo data
 #' 
@@ -26,14 +26,17 @@ NULL
 #' @return a ggplot2 plot
 #' 
 #' @importFrom colorRamps matlab.like2
-#' @export
+#' @importFrom ggthemes solarized_pal
 #'
 #' @examples
-#' \donttest{
-#' rd <- getRevigo()
+#' data("rdinput", package = "RevigoR")
+#' rd <- getRevigo(rdinput)
 #' plotRevigoScatter(rd)
 #' plotRevigoTreemap(rd)
-#' }
+NULL
+
+#' @rdname plotRevigo
+#' @export
 setMethod(
   f = "plotRevigoScatter", 
   signature = signature(x = "RevigoRData"),
@@ -45,7 +48,7 @@ setMethod(
                         colour,
                         size,
                         showAllLabels){
-    requireNamespace("gpplot2", quietly = TRUE)
+    requireNamespace("ggplot2", quietly = TRUE)
     # input check
     checkX <- c("alphabetical","pvalue","uniqueness","X","Y")
     checkY <- c("pvalue","uniqueness","X","Y")

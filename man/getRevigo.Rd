@@ -8,10 +8,11 @@
 \alias{getRevigo,data.frame,ANY-method}
 \title{Get data from ReViGo}
 \usage{
-getRevigo(x, goCategory, pValueCutoff = FALSE, padjValueCutoff = FALSE, ...)
+getRevigo(x, goCategory, pValueCutoff = FALSE, padjValueCutoff = FALSE,
+  ...)
 
-\S4method{getRevigo}{DAVIDFunctionalAnnotationChart,character}(x, goCategory,
-  pValueCutoff = FALSE, padjValueCutoff = FALSE, ...)
+\S4method{getRevigo}{DAVIDFunctionalAnnotationChart,character}(x,
+  goCategory, pValueCutoff = FALSE, padjValueCutoff = FALSE, ...)
 
 \S4method{getRevigo}{data.frame,ANY}(x, cutoff = 0.7, isPValue = TRUE,
   whatIsBetter = "higher", orgID = 0, measure = "SIMREL",
@@ -30,6 +31,8 @@ data.frame like object with two columns, "goTerms" and
 \item{padjValueCutoff}{a p-adjusted value cutoff for subsetting to relevant
 GO terms (default: \code{padjValueCutoff = FALSE}) using the Benjamini 
 p-adjusted value as returned by the DAVID database.}
+
+\item{...}{parameters passed on to getRevigo for signature x = "data.frame"}
 
 \item{isPValue}{are the values for each GO term p-values?}
 
@@ -66,11 +69,10 @@ a RevigoRData object
 terms.
 }
 \examples{
-\donttest{
-go <- DAVIDFunctionalAnnotationChart()
-getRevigo(go,
+data("chart", package = "RevigoR")
+getRevigo(chart,
+          goCategory = "GOTERM_BP_DIRECT",
           pValueCutoff = 0.05)
-}
 \donttest{
 getRevigo()
 }

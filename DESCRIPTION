@@ -16,14 +16,17 @@ Encoding: UTF-8
 LazyData: true
 Depends:
   R (>= 3.5.0),
-  methods,
-  httr,
-  assertive,
-  S4Vectors
+  httr
 Imports:
-  RDAVIDWebService,
+  methods,
+  assertive,
   treemapify,
-  colorRamps
+  colorRamps,
+  ggplot2,
+  ggthemes,
+  stringr,
+  RDAVIDWebService,
+  S4Vectors
 Suggests: 
   testthat,
   knitr,
@@ -40,4 +43,4 @@ Collate:
   'RevigoR-utils.R'
   'RevigoRData-class.R'
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

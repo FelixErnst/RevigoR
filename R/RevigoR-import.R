@@ -100,7 +100,7 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
   }
   if(!has_content(table) || !has_content(treemap)){
     stop("No data found. Head of input data:",
-         head(x),
+         utils::head(x),
          call. = FALSE)
   }
   # extract csv text
@@ -175,6 +175,7 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
 #' @param verbose optional: whether to print more verbose information for the 
 #' httr functions used to accessed the ReViGo service.
 #'
+#'
 #' @return a RevigoRData object
 #' 
 #' @export
@@ -186,5 +187,21 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
 setMethod(
   f = "getRevigo", 
   signature = signature(x = "data.frame"),
-  definition = .do_revigo)
+  definition = function(x,
+                        cutoff = 0.7,
+                        isPValue = TRUE,
+                        whatIsBetter = "higher",
+                        orgID = 0,
+                        measure = "SIMREL",
+                        revigoURL = "http://revigo.irb.hr",
+                        verbose = FALSE){
+    .do_revigo(x,
+               cutoff,
+               isPValue,
+               whatIsBetter,
+               orgID,
+               measure,
+               revigoURL,
+               verbose)
+  })
 

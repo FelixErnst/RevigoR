@@ -1,4 +1,5 @@
 #' @include RevigoR.R
+#' @include AllGenerics-export.R
 NULL
 
 #' @rdname getRevigo
@@ -9,17 +10,17 @@ NULL
 #' @param padjValueCutoff a p-adjusted value cutoff for subsetting to relevant
 #' GO terms (default: \code{padjValueCutoff = FALSE}) using the Benjamini 
 #' p-adjusted value as returned by the DAVID database.
+#' @param ... parameters passed on to getRevigo for signature x = "data.frame"
 #' 
 #' @importFrom stringr str_detect
 #' 
 #' @export
 #'
 #' @examples
-#' \donttest{
-#' go <- DAVIDFunctionalAnnotationChart()
-#' getRevigo(go,
+#' data("chart", package = "RevigoR")
+#' getRevigo(chart,
+#'           goCategory = "GOTERM_BP_DIRECT",
 #'           pValueCutoff = 0.05)
-#' }
 setMethod(
   f = "getRevigo", 
   signature = signature(x = "DAVIDFunctionalAnnotationChart",
@@ -42,7 +43,7 @@ setMethod(
       padjValueCutoff <- 1
     }
     .checkValueValidity(goCategory,
-                        unique(as.character(chart$Category)))
+                        unique(as.character(x$Category)))
     #
     x <- x[x$Category == goCategory,]
     x <- x[str_detect(x$Term, "GO:"),]
@@ -57,7 +58,6 @@ setMethod(
       stop("No GO terms with matching p-value thresholds found.")
     }
     # Assemble search input
-    browser()
     goData <- data.frame(goTerms = stringr::str_extract(x$Term,"GO:([0-9]++)"),
                          value = x$PValue)
     rd <- do.call(getRevigo,

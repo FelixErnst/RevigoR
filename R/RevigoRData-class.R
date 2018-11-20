@@ -1,8 +1,12 @@
 #' @include RevigoR.R
+#' @include AllGenerics-export.R
 NULL
 
-
-#' @rdname RevigoRData-class
+#' @rdname RevigoRData
+#' 
+#' @param table a DataFrame containting the table data of a RevigoR analysis
+#' @param treemap a DataFrame containting the treemap data of a RevigoR analysis
+#' 
 #' @export
 RevigoRData <- function(table,
                         treemap){
@@ -138,7 +142,7 @@ as.revigor_data.List <- function(from){
 
 # Functions --------------------------------------------------------------------
 
-#' @name RevigoRData-functions
+#' @name RevigoRData
 #' 
 #' @title Accessing RevigoRData 
 #' 
@@ -154,11 +158,9 @@ as.revigor_data.List <- function(from){
 #' @examples
 #' getTableData(rd)
 #' getTreemapData(rd)
-setGeneric( 
-  name = "getTableData",
-  def = function(x) standardGeneric("getTableData")
-) 
-#' @rdname RevigoRData-functions
+NULL
+
+#' @rdname RevigoRData
 #' @export
 setMethod(
   f = "getTableData", 
@@ -168,13 +170,7 @@ setMethod(
   }
 )
 
-#' @rdname RevigoRData-functions
-#' @export
-setGeneric( 
-  name = "getTreemapData",
-  def = function(x) standardGeneric("getTreemapData")
-) 
-#' @rdname RevigoRData-functions
+#' @rdname RevigoRData
 #' @export
 setMethod(
   f = "getTreemapData", 

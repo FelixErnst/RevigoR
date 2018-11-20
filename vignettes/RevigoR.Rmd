@@ -14,16 +14,20 @@ vignette: >
 bibliography: references.bib 
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown(css.files = c('custom.css'))
 ```
 
 # Introduction
 
 Revigo [@SupekF.2011] is a web service ([http://revigo.irb.hr/](http://revigo.irb.hr/)) for visualizing lists of gene ontology (GO) terms and their relation to each others. As input a list of gene ontology terms and optionally associated p-values are accepted. To access the information directly from a R session `RevigoR` can be used.
+
+```{r packages_hidden, echo = FALSE}
+suppressPackageStartupMessages(library(RevigoR))
+```
+```{r packages, eval = FALSE}
+library(RevigoR)
+```
 
 # Get Revigo data
 

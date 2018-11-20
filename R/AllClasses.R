@@ -1,7 +1,7 @@
 #' @include RevigoR.R
 NULL
 
-#' @name RevigoRData-class
+#' @name RevigoRData
 #' 
 #' @title RevigoRData
 #' 
@@ -13,8 +13,5 @@ NULL
 #' the following columns to be valid.
 #' 
 #' @export
-#'
-#' @examples
-#' df <- DataFrame(a = 1, b = 2)
 setClass("RevigoRData",
          contains = "SimpleList")

@@ -13,8 +13,9 @@ NULL
 #' @import methods
 #' @import assertive
 #' @import httr
-#' @import S4Vectors
 #' @import ggplot2
+#' @import S4Vectors
 #' @importFrom RDAVIDWebService DAVIDFunctionalAnnotationChart
 NULL
 requireNamespace("assertive")
+requireNamespace("S4Vectors")

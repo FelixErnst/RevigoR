@@ -16,7 +16,7 @@ setGeneric(
 
 # plotting ---------------------------------------------------------------------
 
-#' @name plotRevigo
+#' @rdname plotRevigo
 #' @export
 setGeneric( 
   name = "plotRevigoScatter",
@@ -30,7 +30,7 @@ setGeneric(
                  showAllLabels = FALSE) standardGeneric("plotRevigoScatter")
 ) 
 
-#' @name plotRevigo
+#' @rdname plotRevigo
 #' @export
 setGeneric( 
   name = "plotRevigoTreemap",
@@ -39,3 +39,17 @@ setGeneric(
                  palette = "Set1") standardGeneric("plotRevigoTreemap")
 ) 
 
+# RevigoRData ------------------------------------------------------------------
+
+#' @rdname RevigoRData
+#' @export
+setGeneric( 
+  name = "getTableData",
+  def = function(x) standardGeneric("getTableData")
+) 
+#' @rdname RevigoRData
+#' @export
+setGeneric( 
+  name = "getTreemapData",
+  def = function(x) standardGeneric("getTreemapData")
+) 
