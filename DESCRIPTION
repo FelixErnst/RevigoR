@@ -1,0 +1,46 @@
+Package: RevigoR
+Type: Package
+Title: RevigoR: accessing data from ReViGo service
+Version: 0.0.0.9000
+Date: 2018-07-26
+Authors@R: person("Felix GM", 
+                  "Ernst", 
+                  email = "felix.gm.ernst@outlook.com", 
+                  role = c("aut", "cre"))
+Description: RevigoR accesses the ReViGo service (http://revigo.irb.hr) for
+  given gene ontology terms and saves the data as a list like object of type
+  RevigoRData. Simple plotting functions are implemente, but can be extended upon
+  if necessary.
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: true
+Depends:
+  R (>= 3.5.0),
+  httr
+Imports:
+  methods,
+  assertive,
+  treemapify,
+  colorRamps,
+  ggplot2,
+  ggthemes,
+  stringr,
+  RDAVIDWebService,
+  S4Vectors
+Suggests: 
+  testthat,
+  knitr,
+  rmarkdown,
+  BiocStyle
+Collate: 
+  'RevigoR.R'
+  'AllClasses.R'
+  'AllGenerics-export.R'
+  'RevigoR-GOdb.R'
+  'RevigoR-RDAVIDWebService.R'
+  'RevigoR-import.R'
+  'RevigoR-plot.R'
+  'RevigoR-utils.R'
+  'RevigoRData-class.R'
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1

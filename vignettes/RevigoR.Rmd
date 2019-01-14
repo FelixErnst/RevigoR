@@ -1,0 +1,89 @@
+---
+title: "RevigoR"
+author: "Felix GM Ernst"
+date: "`r Sys.Date()`"
+output: 
+    BiocStyle::html_document:
+        toc: true
+        toc_float: true
+        df_print: paged
+vignette: >
+  %\VignetteIndexEntry{RevigoR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: references.bib 
+---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown(css.files = c('custom.css'))
+```
+
+# Introduction
+
+Revigo [@SupekF.2011] is a web service ([http://revigo.irb.hr/](http://revigo.irb.hr/)) for visualizing lists of gene ontology (GO) terms and their relation to each others. As input a list of gene ontology terms and optionally associated p-values are accepted. To access the information directly from a R session `RevigoR` can be used.
+
+```{r packages_hidden, echo = FALSE}
+suppressPackageStartupMessages(library(RevigoR))
+```
+```{r packages, eval = FALSE}
+library(RevigoR)
+```
+
+# Get Revigo data
+
+Their are several option to get the Revigo results. It largely depends, how the GO terms are stored. The simplest option is a data.frame with two columns for GO terms in the format `GO:XXXXXX` and their associated p-values. 
+
+```{r revigor_simple}
+data("rdinput", package = "RevigoR")
+rdinput
+
+rd <- getRevigo(rdinput)
+rd
+```
+
+The results are saved as a `RevigoData` object, which is basically a `SimpleList` with a fixed length of two (table and treemap keays)
+
+```{r revigor_data}
+rd
+all(getTableData(rd) == rd[["table"]], na.rm = TRUE)
+```
+
+For commonly used GO objects such as `DAVIDFunctionalAnnotationChart` from the `RDAVIDWebService`. Since a chart can hold data different GO categories, a category has to be chosen for subsetting.
+
+```{r revigor_david}
+data("chart", package = "RevigoR")
+chart
+# also 
+rd <- getRevigo(chart,
+                goCategory = "GOTERM_BP_DIRECT")
+rd
+```
+
+
+# Plot Revigo type figures
+
+Results from Revigo are usually plotted as a scatter plot or treemap as done on the web site
+
+```{r revigor_scatter, eval=FALSE}
+plotRevigoScatter(rd)
+```
+
+```{r plot1, fig.cap="Revigo scatter plot", echo=FALSE}
+plotRevigoScatter(rd)
+```
+
+```{r revigor_treemap, eval=FALSE}
+plotRevigoTreemap(rd)
+```
+
+```{r plot2, fig.cap="Revigo treemap plot", echo=FALSE}
+plotRevigoTreemap(rd)
+```
+
+# Sessioninfo
+
+```{r build_info}
+sessionInfo()
+```
+
+# References
