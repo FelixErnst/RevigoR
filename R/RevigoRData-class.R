@@ -2,10 +2,10 @@
 #' @include AllGenerics-export.R
 NULL
 
-#' @rdname RevigoRData
+#' @rdname RevigoRData-class
 #' 
-#' @param table a DataFrame containting the table data of a RevigoR analysis
-#' @param treemap a DataFrame containting the treemap data of a RevigoR analysis
+#' @param table a DataFrame containing the table data of a RevigoR analysis
+#' @param treemap a DataFrame containing the treemap data of a RevigoR analysis
 #' 
 #' @export
 RevigoRData <- function(table,
@@ -63,30 +63,35 @@ setMethod(
 # Validation -------------------------------------------------------------------
 
 .valid.RevigoRData <- function(object){
-  return(all(.is_valid_table(object),.is_valid_table(object)))
+  return(c(.is_valid_revigor(object),
+           .is_valid_table(object),
+           .is_valid_treemap(object)))
+}
+
+.is_valid_revigor <- function(object){
+    names <- names(object@listData)
+    if(length(names) != 2L || !all(c("table","treemap") %in% names)){
+        return("Invalid entries in list data of RevigoR class")
+    }
+    NULL
 }
 
 .is_valid_table <- function(object){
-  
-  # table <- table[(table$plot_X != "null" & 
-  #                   table$plot_Y != "null"),]
-  # table$plot_X <- as.numeric(as.character(table$plot_X))
-  # table$plot_Y <- as.numeric(as.character(table$plot_Y))
-  # table$plot_size <- as.numeric(as.character(table$plot_size))
-  # table$log10.p.value <- as.numeric(as.character(table$log10.p.value))
-  # table$frequency <- as.numeric(as.character(table$frequency))
-  # table$uniqueness <- as.numeric(as.character(table$uniqueness))
-  # table$dispensability <- as.numeric(as.character(table$dispensability))
-  
-  return(TRUE)
+    names <- colnames(getTableData(object))
+    if(!all(c("goTerm","description","frequency","plot_X","plot_Y","plot_size",
+              "log10pvalue","uniqueness","dispensability","representative",
+              "eliminated") %in% names)){
+        return("Invalid column names in table data of RevigoR class")
+    }
+    NULL
 }
 .is_valid_treemap <- function(object){
-  # treemap$abslog10pvalue <- as.numeric(as.character(treemap$abslog10pvalue))
-  # treemap$freqInDbPercent <- as.numeric(as.character(treemap$freqInDbPercent))
-  # treemap$uniqueness <- as.numeric(as.character(treemap$uniqueness))
-  # treemap$dispensability <- as.numeric(as.character(treemap$dispensability))
-  
-  return(TRUE)
+    names <- colnames(getTreemapData(object))
+    if(!all(c("goTerm","description","frequency","log10pvalue","uniqueness",
+              "dispensability","representative") %in% names)){
+        return("Invalid column names in treemap data of RevigoR class")
+    }
+    NULL
 }
 
 setValidity("RevigoRData", .valid.RevigoRData)
@@ -142,25 +147,24 @@ as.revigor_data.List <- function(from){
 
 # Functions --------------------------------------------------------------------
 
-#' @name RevigoRData
+#' Accessing RevigoRData 
 #' 
-#' @title Accessing RevigoRData 
-#' 
-#' @description 
-#' \code{getTableData} and \code{getTreemapData} returns data froma
+#' \code{getTableData} and \code{getTreemapData} returns data from a
 #' \code{RevigoRData} object.
 #'
-#' @param x RevigoRData. 
+#' @param x a \code{\link[=RevigoRData-class]{RevigoRData}} object
 #'
-#' @return DataFrame
-#' @export
+#' @return a DataFrame
+#' 
+#' @name RevigoRData-accessors
 #'
 #' @examples
+#' data(rd)
 #' getTableData(rd)
 #' getTreemapData(rd)
 NULL
 
-#' @rdname RevigoRData
+#' @rdname RevigoRData-accessors
 #' @export
 setMethod(
   f = "getTableData", 
@@ -170,7 +174,7 @@ setMethod(
   }
 )
 
-#' @rdname RevigoRData
+#' @rdname RevigoRData-accessors
 #' @export
 setMethod(
   f = "getTreemapData", 
@@ -179,5 +183,3 @@ setMethod(
     return(x$treemap)
   }
 )
-
-

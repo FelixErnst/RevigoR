@@ -1,16 +1,16 @@
 Package: RevigoR
 Type: Package
 Title: RevigoR: accessing data from ReViGo service
-Version: 0.0.0.9000
-Date: 2018-07-26
-Authors@R: person("Felix GM", 
-                  "Ernst", 
-                  email = "felix.gm.ernst@outlook.com", 
-                  role = c("aut", "cre"))
+Version: 0.0.1
+Date: 2020-11-17
+Authors@R: 
+    c(person("Felix GM", "Ernst", 
+             email = "felix.gm.ernst@outlook.com", role = c("aut", "cre")),
+      person("Roy","Storey", role = c("ctb")))
 Description: RevigoR accesses the ReViGo service (http://revigo.irb.hr) for
   given gene ontology terms and saves the data as a list like object of type
-  RevigoRData. Simple plotting functions are implemente, but can be extended upon
-  if necessary.
+  RevigoRData. Simple plotting functions are implemented, but can be extended 
+  upon if necessary.
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
@@ -19,7 +19,6 @@ Depends:
   httr
 Imports:
   methods,
-  assertive,
   treemapify,
   colorRamps,
   ggplot2,
@@ -43,4 +42,4 @@ Collate:
   'RevigoR-utils.R'
   'RevigoRData-class.R'
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1

@@ -30,22 +30,30 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
          " columns detected.",
          call. = FALSE)
   }
-  assertive::assert_is_a_number(cutoff)
+  if(!.is_numeric_string(cutoff)){
+    stop("'cutoff' must be a numeric value.", call. = FALSE)
+  }
   .checkValueValidity(cutoff, 
                       c(0.9,
                         0.7,
                         0.5,
                         0.4))
-  assertive::assert_is_a_string(whatIsBetter)
+  if(!.is_a_string(whatIsBetter)){
+      stop("'whatIsBetter' must be a single character value.", call. = FALSE)
+  }
   .checkValueValidity(whatIsBetter, 
                       c("higher",
                         "lower",
                         "absolute",
                         "abs_log"))
-  assertive::assert_is_a_number(orgID)
+  if(!.is_numeric_string(orgID)){
+      stop("'orgID' must be an numeric value.", call. = FALSE)
+  }
   .checkValueValidity(orgID, 
                       REVIGOR_ORG_ID)
-  assertive::assert_is_a_string(measure)
+  if(!.is_a_string(measure)){
+      stop("'measure' must be a single character value.", call. = FALSE)
+  }
   .checkValueValidity(measure, 
                       c("RESNIK",
                         "LIN",
@@ -92,11 +100,17 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
   } else {
     table <- httr::GET(revigo_url(REVIGOR_URL_CSVSCRIPT1))
   }
+  if(http_error(table)) {
+    stop(paste0(c("HTTP error: ", http_status(table)), sep = " "))
+  }
   if(verbose){
     treemap <- httr::GET(revigo_url(REVIGOR_URL_CSVSCRIPT2), 
                          httr::verbose())
   } else {
     treemap <- httr::GET(revigo_url(REVIGOR_URL_CSVSCRIPT2))
+  }
+  if(http_error(treemap)) {
+    stop(paste0(c("HTTP error: ", http_status(treemap)), sep = " "))
   }
   if(!has_content(table) || !has_content(treemap)){
     stop("No data found. Head of input data:",
@@ -156,7 +170,7 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
 #' @param x the input data of different types. The simplist one is a 
 #' data.frame like object with two columns, "goTerms" and 
 #' "value". If colnames are not given, the order is assumed as described.
-#' @param similarityCutoff 0.9, 0.7, 0.5 or 0.4 
+#' @param cutoff 0.9, 0.7, 0.5 or 0.4 
 #' @param isPValue are the values for each GO term p-values?
 #' @param whatIsBetter if the values are not p-values, how should the vallues 
 #' be evaluated? One of the following values: "higher","lower","absolute",
@@ -181,9 +195,11 @@ REVIGOR_ORG_ID <- c(0,9606,10090,10116,9913,9031,7955,31033,7227,
 #' @export
 #'
 #' @examples
-#' \donttest{
-#' getRevigo()
-#' }
+#' data("rdinput", package = "RevigoR")
+#' rdinput
+#' 
+#' rd <- getRevigo(rdinput)
+#' rd
 setMethod(
   f = "getRevigo", 
   signature = signature(x = "data.frame"),

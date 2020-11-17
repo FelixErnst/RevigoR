@@ -39,15 +39,15 @@ setGeneric(
                  palette = "Set1") standardGeneric("plotRevigoTreemap")
 ) 
 
-# RevigoRData ------------------------------------------------------------------
+# RevigoRData accessors --------------------------------------------------------
 
-#' @rdname RevigoRData
+#' @rdname RevigoRData-accessors
 #' @export
 setGeneric( 
   name = "getTableData",
   def = function(x) standardGeneric("getTableData")
 ) 
-#' @rdname RevigoRData
+#' @rdname RevigoRData-accessors
 #' @export
 setGeneric( 
   name = "getTreemapData",

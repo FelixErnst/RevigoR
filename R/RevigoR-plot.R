@@ -72,10 +72,15 @@ setMethod(
     .checkValueValidity(colourType,
                         checkColour)
     colourType <- .convert_types_to_colnames(colourType)
-    assertive::assert_is_a_string(colour)
-    assertive::assert_is_a_number(size)
-    assertive::assert_all_are_positive(size)
-    assertive::assert_is_a_bool(showAllLabels)
+    if(!.is_a_string(colour)){
+        stop("'colour' must be a single character value.", call. = FALSE)
+    }
+    if(!.is_numeric_string(size) || size <= 0){
+        stop("'size' must be a positive numeric value.", call. = FALSE)
+    }
+    if(!.is_a_bool(showAllLabels)){
+        stop("'showAllLabels' must be TRUE or FALSE.", call. = FALSE)
+    }
     # get data and subset
     data <- getTableData(x)
     data <- data[!is.na(data$plot_X) | !is.na(data$plot_Y),]
@@ -233,7 +238,9 @@ setMethod(
               "uniqueness" = "uniqueness",
               "dispensability" = "dispensability")
     # input check
-    assertive::assert_is_a_non_missing_nor_empty_string(type)
+    if(!.is_non_empty_string(type)){
+        stop("'type' must be a non-empty single character value.", call. = FALSE)
+    }
     .checkValueValidity(type,
                         names(cols))
     # get data and make values positive

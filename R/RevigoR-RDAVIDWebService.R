@@ -31,14 +31,23 @@ setMethod(
                         padjValueCutoff = FALSE,
                         ...){
     # input check
-    assertive::assert_is_a_non_empty_string(goCategory)
-    if(assertive::is_not_false(as.logical(pValueCutoff))){
-      assertive::assert_is_a_number(pValueCutoff)
+    if(!.is_non_empty_string(goCategory)){
+      stop("'goCategory' must be a non-empty single character value.",
+           call. = FALSE)
+    }
+    if(!isFALSE(as.logical(pValueCutoff))){
+      if(!is.numeric(pValueCutoff)){
+          stop("'pValueCutoff' must be a numeric value.",
+               call. = FALSE)
+      }
     } else {
       pValueCutoff <- 1
     }
-    if(assertive::is_not_false(as.logical(padjValueCutoff))){
-      assertive::assert_is_a_number(padjValueCutoff)
+    if(!isFALSE(as.logical(padjValueCutoff))){
+      if(!is.numeric(padjValueCutoff)){
+          stop("'padjValueCutoff' must be a numeric value.",
+               call. = FALSE)
+      }
     } else {
       padjValueCutoff <- 1
     }

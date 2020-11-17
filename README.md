@@ -7,6 +7,7 @@ Two plots are implemented: the scatter plot and the treemap plot.
 
 # Installation
 
-```
-remotes::install_github("FelixErnst/RevigoR")
+```r
+install.packages(c("remotes", "BiocManager"))
+remotes::install_github("FelixErnst/RevigoR", repos = BiocManager::repositories())
 ```

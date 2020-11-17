@@ -1,16 +1,15 @@
 #' @include RevigoR.R
 NULL
 
-#' @name RevigoRData
+#' RevigoRData class
 #' 
-#' @title RevigoRData
+#' This class is a container for holding data returned from the ReViGo web 
+#' service.
 #' 
-#' @description 
-#' These classes are inheriting from List. It contains exactly two DataFrames, 
-#' table and treemap
+#' @slot listData a \code{\link[S4Vectors:SimpleList-class]{SimpleList}} with 
+#'   two entries, \code{table} and \code{treemap}
 #' 
-#' but require the presence of
-#' the following columns to be valid.
+#' @name RevigoRData-class
 #' 
 #' @export
 setClass("RevigoRData",

@@ -3,10 +3,12 @@
 \docType{package}
 \name{RevigoR}
 \alias{RevigoR}
-\alias{RevigoR-package}
 \title{RevigoR}
 \description{
-title
+RevigoR accesses the ReViGo service (http://revigo.irb.hr) for
+given gene ontology terms and saves the data as a list like object of type
+RevigoRData. Simple plotting functions are implemented, but can be extended 
+upon if necessary.
 }
 \author{
 Felix G M Ernst [aut]

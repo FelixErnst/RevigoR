@@ -41,14 +41,14 @@ rd <- getRevigo(rdinput)
 rd
 ```
 
-The results are saved as a `RevigoData` object, which is basically a `SimpleList` with a fixed length of two (table and treemap keays)
+The results are saved as a `RevigoData` object, which is basically a `SimpleList` with a fixed length of two (table and treemap keys)
 
 ```{r revigor_data}
 rd
 all(getTableData(rd) == rd[["table"]], na.rm = TRUE)
 ```
 
-For commonly used GO objects such as `DAVIDFunctionalAnnotationChart` from the `RDAVIDWebService`. Since a chart can hold data different GO categories, a category has to be chosen for subsetting.
+For commonly used GO objects such as `DAVIDFunctionalAnnotationChart` from the `RDAVIDWebService`. Since a chart can hold data of different GO categories, a category has to be selected.
 
 ```{r revigor_david}
 data("chart", package = "RevigoR")
